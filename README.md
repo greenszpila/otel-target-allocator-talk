@@ -78,7 +78,7 @@ kubectl create secret generic newrelic-key-secret --namespace opentelemetry --fr
 Finally, deploy the Kubernetes resources:
 
 ```bash
-./src/scripts/04-deploy-resources-ls-backend.sh
+./src/scripts/04-deploy-resources-nr-backend.sh
 ```
 
 ## 4- Check logs
