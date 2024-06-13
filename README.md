@@ -62,38 +62,18 @@ Now you are ready to deploy the Kubernetes resources
 ./src/scripts/04-deploy-resources.sh
 ```
 
-### 3b- Kubernetes deployment (ServiceNow Cloud Observability backend)
+### 3b- Kubernetes deployment (NewRelic Cloud Observability backend)
 
-> 🚨 If you want to send telemetry to [ServiceNow Cloud Observability (formerly known as Lightstep)](https://www.servicenow.com/products/observability.html), you'll need to follow the steps below, and skip [Step 3a](#3a---kubernetes-deployment-collector-stdout-only).
+> 🚨 If you want to send telemetry to new relic, you'll need to follow the steps below, and skip [Step 3a](#3a---kubernetes-deployment-collector-stdout-only).
 
-To send telemetry to ServiceNow Cloud Observability, you will first need a Cloud Observability account. You will also need to obtain an [access token](https://docs.lightstep.com/docs/create-and-manage-access-tokens#create-an-access-token).
 
-We're going to store the access token in a Kubernetes secret, and will map the secret to an environment variabe in the  [`OpenTelemetryCollector CR`](https://github.com/avillela/otel-target-allocator-talk/blob/a2763917142957f8f6e32d137e35a6d0e4ea4f55/src/resources/02-otel-collector-ls.yml#L17-L21).
+We're going to store the access token in a Kubernetes secret, and will map the secret to an environment variabe in the  [`OpenTelemetryCollector CR`](https://github.com/avillela/otel-target-allocator-talk/blob/a2763917142957f8f6e32d137e35a6d0e4ea4f55/src/resources/02-otel-collector-nr.yml#L17-L21).
 
 First, create a secrets file for the Lightstep token.
 
 ```bash
-tee -a src/resources/00-secret.yaml <<EOF
- apiVersion: v1
- kind: Secret
- metadata:
-   name: otel-collector-secret
-   namespace: opentelemetry
- data:
-   LS_TOKEN: <base64-encoded-LS-token>
- type: "Opaque"
-EOF
+kubectl create secret generic newrelic-key-secret --namespace opentelemetry --from-literal=new_relic_license_key='<NEW_RELIC_LICENSE_KEY>' 
 ```
-
-Replace <base64-encoded-LS-token> with your own [access token] (https://docs.lightstep.com/docs/create-and-manage-access-tokens#create-an-access-token)
-
-Be sure to Base64 encode it like this:
-
-```bash
-echo <LS-access-token> | base64
-```
-
-Or you can Base64-encode it through [this website](https://www.base64encode.org/).
 
 Finally, deploy the Kubernetes resources:
 

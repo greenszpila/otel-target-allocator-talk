@@ -41,10 +41,13 @@ spec:
       batch:
 
     exporters:
-      otlp/ls:
-        endpoint: "ingest.lightstep.com:443"
+      otlp/nr:
+      otlp:
+        endpoint: "otlp.nr-data.net:4317"
+        tls:
+          insecure: false
         headers:
-          "lightstep-access-token": "${LS_TOKEN}"
+          api-key: $NEW_RELIC_LICENSE_KEY
       logging:
         verbosity: detailed
 
@@ -53,12 +56,12 @@ spec:
         traces:
           receivers: [otlp]
           processors: [batch]
-          exporters: [otlp/ls, logging]
+          exporters: [otlp/nr, logging]
         metrics:
           receivers: [otlp, prometheus]
           processors: []
-          exporters: [otlp/ls, logging]
+          exporters: [otlp/nr, logging]
         logs:
           receivers: [otlp]
           processors: [batch]
-          exporters: [otlp/ls, logging]
+          exporters: [otlp/nr, logging]
