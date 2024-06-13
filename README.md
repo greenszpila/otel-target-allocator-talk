@@ -54,7 +54,7 @@ Reference [here](https://kind.sigs.k8s.io/docs/user/quick-start/#loading-an-imag
 
 ## 3a - Kubernetes Deployment (Collector stdout only)
 
-> 🚨 This step deploys resources to send telemetry to the OTel Collector's sdout only. If you want to send telemetry to [ServiceNow Cloud Observability (formerly known as Lightstep)](https://www.servicenow.com/products/observability.html), you'll need to skip this step and follow [Step 3b](#3b--kubernetes-deployment-servicenow-cloud-observability-backend) instead.
+> 🚨 This step deploys resources to send telemetry to the OTel Collector's sdout only. If you want to send telemetry to new relic, you'll need to skip this step and follow [Step 3b](#3b--kubernetes-deployment-servicenow-cloud-observability-backend) instead.
 
 Now you are ready to deploy the Kubernetes resources
 
@@ -69,7 +69,7 @@ Now you are ready to deploy the Kubernetes resources
 
 We're going to store the access token in a Kubernetes secret, and will map the secret to an environment variabe in the  [`OpenTelemetryCollector CR`](https://github.com/avillela/otel-target-allocator-talk/blob/a2763917142957f8f6e32d137e35a6d0e4ea4f55/src/resources/02-otel-collector-nr.yml#L17-L21).
 
-First, create a secrets file for the Lightstep token.
+First, create a secrets file for the newrelic token.
 
 ```bash
 kubectl create secret generic newrelic-key-secret --namespace opentelemetry --from-literal=new_relic_license_key='<NEW_RELIC_LICENSE_KEY>' 
