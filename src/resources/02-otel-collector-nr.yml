@@ -13,7 +13,7 @@ spec:
       ## If uncommented, only service monitors with this label will get picked up
       # serviceMonitorSelector:
       #   app: my-app
-  extraEnvs:
+  env:
     - name: NEW_RELIC_LICENSE_KEY
       valueFrom:
         secretKeyRef:
