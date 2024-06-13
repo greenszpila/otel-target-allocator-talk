@@ -13,12 +13,12 @@ spec:
       ## If uncommented, only service monitors with this label will get picked up
       # serviceMonitorSelector:
       #   app: my-app
-  env:
-    - name: LS_TOKEN
+  extraEnvs:
+    - name: NEW_RELIC_LICENSE_KEY
       valueFrom:
         secretKeyRef:
-          key: LS_TOKEN
-          name: otel-collector-secret
+          name: newrelic-key-secret
+          key: new_relic_license_key
   config: |
     receivers:
       otlp:
