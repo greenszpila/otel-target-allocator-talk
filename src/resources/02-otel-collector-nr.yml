@@ -42,7 +42,6 @@ spec:
 
     exporters:
       otlp/nr:
-      otlp:
         endpoint: "otlp.nr-data.net:4317"
         tls:
           insecure: false
